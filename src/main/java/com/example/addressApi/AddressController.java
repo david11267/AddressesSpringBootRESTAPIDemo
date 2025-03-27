@@ -129,4 +129,22 @@ public class AddressController {
        }
         return "Address edited successfully!";
     }
+
+    @DeleteMapping()
+    public String Delete(@RequestBody AddressDTO addressDTO) {
+        System.out.println("___DELETE ADDRESS___");
+        System.out.println("id: " + addressDTO.getId());
+
+        Address selected = addresses.stream()
+                .filter(address -> address.getId().equals(addressDTO.getId()))
+                .findFirst()
+                .orElse(null);
+
+        if (selected == null) {
+            return "Address not found!";
+        }
+
+        addresses.remove(selected);
+        return "Address deleted successfully!";
+    }
 }
