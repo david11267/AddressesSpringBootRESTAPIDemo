@@ -1,5 +1,7 @@
 package com.example.addressApi;
 
+import java.util.UUID;
+
 public class AddressDTO {
     private String country;
     private String city;
@@ -7,6 +9,11 @@ public class AddressDTO {
     private String street;
     private String imageUrl;
     private String description;
+    private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
 
     // Getters and setters
     public String getCountry() {

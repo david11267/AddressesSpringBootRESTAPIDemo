@@ -86,8 +86,9 @@ public class AddressController {
         return addresses;
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public String Create (@RequestBody AddressDTO addressDTO){
+        System.out.println("___POST ADDRESS___");
         System.out.println("Country: " + addressDTO.getCountry());
         System.out.println("City: " + addressDTO.getCity());
         System.out.println("Municipality: " + addressDTO.getMuniplacity());
@@ -98,4 +99,34 @@ public class AddressController {
         return "Address created successfully!";
     }
 
+    @PutMapping()
+    public String Edit (@RequestBody AddressDTO addressDTO){
+        System.out.println("___PUT ADDRESS___");
+        System.out.println("id: " + addressDTO.getId());
+        System.out.println("Country: " + addressDTO.getCountry());
+        System.out.println("City: " + addressDTO.getCity());
+        System.out.println("Municipality: " + addressDTO.getMuniplacity());
+        System.out.println("Street: " + addressDTO.getStreet());
+        System.out.println("Image URL: " + addressDTO.getImageUrl());
+        System.out.println("Description: " + addressDTO.getDescription());
+
+        Address selected = addresses.stream()
+                .filter(address -> address.getId().equals(addressDTO.getId()))
+                .findFirst()
+                .orElse(null);
+
+       try {
+           selected.setCountry(addressDTO.getCountry());
+           selected.setCity(addressDTO.getCity());
+           selected.setMuniplacity(addressDTO.getMuniplacity());
+           selected.setStreet(addressDTO.getStreet());
+           selected.setImageUrl(addressDTO.getImageUrl());
+           selected.setDescription(addressDTO.getDescription());
+       }
+       catch (Error e){
+           return "Address edit failed!";
+
+       }
+        return "Address edited successfully!";
+    }
 }
